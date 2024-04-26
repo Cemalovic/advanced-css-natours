@@ -1,0 +1,64 @@
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// MEDIA QUERY MANAGER
+
+/*
+
+1em = 16px
+
+0-600px:      Phone (600px = 37.5em)
+600-900px:    Tablet portrait (900px = 56.25em)
+900-1200px:   Tablet landscape (1200px = 75em)
+[1200-1800px] is where normal styles apply
+1800px+:      Big desktop (1800px = 112.5em)
+
+$beakpoint argument choises
+
+phone (600px = 37.5em)
+tab-port (900px = 56.25em)
+tab-land (1200px = 75em)
+big-desktop (1800px = 112.5em)
+
+ORDER:
+base + typorgaphy
+general layout + grid
+page layout
+components
+
+*/
+
+@mixin respond($beakpoint) {
+  @if $beakpoint == phone {
+    @media only screen and (max-width: 37.5em) {
+      @content;
+    }
+  }
+  @if $beakpoint == tab-port {
+    @media only screen and (max-width: 56.25em), only screen and (hover: none) {
+      @content;
+    }
+  }
+  @if $beakpoint == tab-land {
+    @media only screen and (max-width: 75em), only screen and (hover: none) {
+      @content;
+    }
+  }
+  @if $beakpoint == big-desktop {
+    @media (min-width: 112.5em) {
+      @content;
+    }
+  }
+}
